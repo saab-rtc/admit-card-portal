@@ -1,349 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Admit Card Portal for LSC Batch 01/2025, SAAB Recruit Training Center Hyderabad" />
-  <meta name="keywords" content="SAAB, RTC Hyderabad, LSC Batch, Admit Card" />
-  <title>LSC Batch 01/2025 – SAAB, RTC Hyderabad Admit Card Portal</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAAB RTC Hyderabad - Admit Card Portal</title>
   <style>
-    :root {
-      --primary: #1e40af;
-      --secondary: #1e293b;
-      --bg: #0f172a;
-      --text: #f3f4f6;
-      --accent: #f59e0b;
-      --white: #ffffff;
-      --error: #ef4444;
-      --success: #10b981;
-      --font: 'Poppins', sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
       margin: 0;
       padding: 0;
-    }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding: 20px;
+      align-items: center;
+      min-height: 100vh;
     }
-
     .container {
-      max-width: 960px;
-      width: 100%;
-      margin: 20px auto;
-      background: rgba(30, 41, 59, 0.9);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
-      padding-bottom: 20px;
-    }
-
-    .header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background: rgba(0, 0, 0, 0.7);
       padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
       text-align: center;
-      color: var(--white);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
-
-    .header img {
-      height: 90px;
-      margin-bottom: 12px;
-      object-fit: contain;
-      loading: lazy;
+    .logo {
+      height: 80px;
+      margin-bottom: 15px;
     }
-
-    .header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-    }
-
-    .header h2 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      opacity: 0.9;
-    }
-
-    .subtitle {
-      background: var(--accent);
-      color: var(--white);
-      margin: 20px;
-      padding: 10px;
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 6px;
-    }
-
-    .search-container {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .search-container input {
-      width: 100%;
-      max-width: 320px;
-      padding: 12px;
-      font-size: 1rem;
-      border: 2px solid var(--primary);
-      border-radius: 6px;
-      background: var(--white);
-      transition: border-color 0.3s, box-shadow 0.3s;
-      color: #000;
-    }
-
-    .search-container input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
-    }
-
-    .search-container button {
+    h1 {
+      color: #4CAF50;
       margin: 10px 0;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--white);
-      background: var(--primary);
+      font-size: 24px;
+    }
+    h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
+      font-size: 16px;
+      text-align: center;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
-      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+      transition: background 0.3s;
     }
-
-    .search-container button:hover {
-      background: #1e3a8a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    button:hover {
+      background: #45a049;
     }
-
-    .loading-spinner {
+    .message {
+      margin-top: 15px;
+      color: #ff6b6b;
+      min-height: 20px;
+    }
+    .loading {
       display: none;
       border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--accent);
+      border-top: 4px solid #4CAF50;
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
+      width: 30px;
+      height: 30px;
       animation: spin 1s linear infinite;
-      margin: 10px auto;
+      margin: 15px auto;
     }
-
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-
-    .message {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #ff6b6b;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--white);
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      padding: 8px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .theme-toggle:hover {
-      background: var(--primary);
-      color: var(--white);
-    }
-
-    .footer {
-      background: var(--bg);
-      padding: 15px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #9ca3af;
-    }
-
-    .footer .developer-credit {
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    /* Light Mode */
-    body.light-mode {
-      --bg: #f3f4f6;
-      --text: #1f2937;
-      --secondary: #ffffff;
-    }
-
-    body.light-mode .container {
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        margin: 10px;
-        padding-bottom: 10px;
-      }
-
-      .header img {
-        height: 70px;
-      }
-
-      .header h1 {
-        font-size: 1.5rem;
-      }
-
-      .header h2 {
-        font-size: 0.95rem;
-      }
-
-      .search-container input {
-        max-width: 100%;
-      }
-
-      .search-container button {
-        width: 100%;
-      }
-    }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
-    <i class="fas fa-moon"></i>
-  </button>
-
   <div class="container">
-    <div class="header">
-      <img src="rtc-logo.jpeg" alt="SAAB RTC Logo" />
-      <h1>SHAHEED ABDUL AZIZ BULLO</h1>
-      <h2>RECRUIT TRAINING CENTER HYDERABAD</h2>
-    </div>
-
-    <div class="subtitle">Admit Card for LSC Batch 01/2025</div>
-
-    <div class="search-container">
-      <input
-        type="text"
-        id="rollNo"
-        placeholder="Enter Roll Number (e.g., 1254)"
-        aria-label="Enter Roll Number"
-        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-      />
-      <button onclick="downloadAdmitCard()" aria-label="Download Admit Card">
-        <i class="fas fa-download"></i> Download Admit Card
-      </button>
-      <div class="loading-spinner" id="loadingSpinner"></div>
-      <div class="message" id="message"></div>
-    </div>
-
-    <div class="footer">
-      <div class="developer-credit">
-        System Developed by: Mohsin Ali Jamali (Exam Branch SAAB, RTC HYD)
-      </div>
-    </div>
+    <img src="file (1) (1).png" alt="SAAB RTC Logo" class="logo">
+    <h1>SHAHEED ABDUL AZIZ BULLO</h1>
+    <h2>RECRUIT TRAINING CENTER HYDERABAD</h2>
+    <p>Admit Card Portal - LSC Batch 02/2025</p>
+    
+    <input type="text" id="rollNo" placeholder="Enter Buckle Number (e.g. 1254)" 
+           oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+    <button onclick="searchAdmitCard()">Download Admit Card</button>
+    
+    <div class="loading" id="loading"></div>
+    <div class="message" id="message"></div>
   </div>
 
   <script>
-    function downloadAdmitCard() {
-      let rollNo = document.getElementById('rollNo').value.trim();
-      let messageBox = document.getElementById('message');
-      const loadingSpinner = document.getElementById('loadingSpinner');
+    async function searchAdmitCard() {
+      const rollNo = document.getElementById('rollNo').value.trim();
+      const message = document.getElementById('message');
+      const loading = document.getElementById('loading');
       
-      messageBox.textContent = "";
-      loadingSpinner.style.display = "block";
+      message.textContent = '';
+      loading.style.display = 'block';
       
-      if (rollNo === "") {
-        messageBox.textContent = "⚠ Please enter your Roll Number.";
-        loadingSpinner.style.display = "none";
+      if (!rollNo) {
+        message.textContent = 'Please enter your roll number';
+        loading.style.display = 'none';
         return;
       }
-      
-      // First try exact roll number match
-      checkFileExists(`admitcards/${rollNo}.pdf`, rollNo)
-        .then(exists => {
-          if (exists) {
-            window.open(`admitcards/${rollNo}.pdf`, '_blank');
-          } else {
-            // If exact match not found, try pattern match (rollNo-*.pdf)
-            return checkPatternMatch(rollNo);
-          }
-        })
-        .catch(error => {
-          console.error("Error:", error);
-          messageBox.textContent = "⚠ Error checking admit card. Please try again.";
-        })
-        .finally(() => {
-          loadingSpinner.style.display = "none";
-        });
-    }
 
-    function checkFileExists(url, rollNo) {
-      return fetch(url, { method: 'HEAD' })
-        .then(res => {
-          if (res.ok) return true;
-          return false;
-        });
-    }
-
-    function checkPatternMatch(rollNo) {
-      // This is a simulation - in a real implementation, you would need server-side support
-      // to check for files matching the pattern "rollNo-*.pdf"
-      
-      // For demonstration, we'll assume the file exists with the pattern "rollNo-Name.pdf"
-      const simulatedFileName = `${rollNo}-*.pdf`;
-      
-      // In a real implementation, you would make an API call to your server
-      // to check if any files match this pattern
-      return new Promise((resolve) => {
-        // Simulate network delay
-        setTimeout(() => {
-          // For demo purposes, we'll assume the file exists
-          // In production, replace this with actual API call
-          const fileExists = true; // Change this based on actual check
+      try {
+        // First try exact match (rollNo.pdf)
+        let found = await checkFileExists(`admitcards/${rollNo}.pdf`);
+        
+        if (!found) {
+          // If not found, try pattern (rollNo-*.pdf)
+          // This requires server-side support or known naming pattern
           
-          if (fileExists) {
-            window.open(`admitcards/${rollNo}-*.pdf`, '_blank');
-          } else {
-            document.getElementById('message').textContent = 
-              `❌ Admit card not found for Roll No: ${rollNo}`;
-          }
-          resolve();
-        }, 1000);
-      });
+          // For demo, we'll assume files are named "rollNo-Name.pdf"
+          found = await checkFileExists(`admitcards/${rollNo}-Name.pdf`);
+          
+          // In production, you would need to:
+          // 1. Have a server API that returns matching files, or
+          // 2. Know the exact naming pattern
+        }
+        
+        if (found) {
+          window.open(`admitcards/${rollNo}-Name.pdf`, '_blank');
+        } else {
+          message.textContent = `Admit card not found for Roll No: ${rollNo}`;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        message.textContent = 'Error searching for admit card. Please try again.';
+      } finally {
+        loading.style.display = 'none';
+      }
     }
 
-    function toggleTheme() {
-      document.body.classList.toggle("light-mode");
-      const icon = document.querySelector(".theme-toggle i");
-      icon.className = document.body.classList.contains("light-mode")
-        ? "fas fa-sun"
-        : "fas fa-moon";
+    async function checkFileExists(url) {
+      try {
+        const response = await fetch(url, { method: 'HEAD' });
+        return response.ok;
+      } catch (error) {
+        console.error('Error checking file:', error);
+        return false;
+      }
     }
 
-    // Add Enter key support for search
-    document.getElementById("rollNo").addEventListener("keypress", (event) => {
-      if (event.key === "Enter") {
-        downloadAdmitCard();
+    // Allow Enter key to trigger search
+    document.getElementById('rollNo').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchAdmitCard();
       }
     });
   </script>
