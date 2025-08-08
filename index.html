@@ -266,45 +266,44 @@
       // Add all other roll numbers and their corresponding filenames
     };
 
-    async function downloadAdmitCard() {
-      const rollNo = document.getElementById('rollNo').value.trim();
-      const messageBox = document.getElementById('message');
-      const loadingSpinner = document.getElementById('loadingSpinner');
-      
-      messageBox.textContent = "";
-      loadingSpinner.style.display = "block";
-      
-      if (rollNo === "") {
-        messageBox.textContent = "⚠ Please enter your Buckle Number.";
-        loadingSpinner.style.display = "none";
-        return;
-      }
-      
-      // Check if we have this roll number in our list
-      if (admitCards[rollNo]) {
-        const fileUrl = "admitcards/" + admitCards[rollNo];
-        loadingSpinner.style.display = "none";
-        window.open(fileUrl, '_blank');
-      } else {
-        loadingSpinner.style.display = "none";
-        messageBox.textContent = "❌ Admit card not found for Buckle No: " + rollNo;
-      }
-    }
+ <script>
+async function downloadAdmitCard() {
+  const rollNo = document.getElementById('rollNo').value.trim();
+  const messageBox = document.getElementById('message');
+  const loadingSpinner = document.getElementById('loadingSpinner');
 
-    function toggleTheme() {
-      document.body.classList.toggle("light-mode");
-      const icon = document.querySelector(".theme-toggle i");
-      icon.className = document.body.classList.contains("light-mode")
-        ? "fas fa-sun"
-        : "fas fa-moon";
-    }
+  messageBox.textContent = "";
+  loadingSpinner.style.display = "block";
 
-    // Add Enter key support for search
-    document.getElementById("rollNo").addEventListener("keypress", (event) => {
-      if (event.key === "Enter") {
-        downloadAdmitCard();
-      }
-    });
-  </script>
+  if (rollNo === "") {
+    messageBox.textContent = "⚠ Please enter your Buckle Number.";
+    loadingSpinner.style.display = "none";
+    return;
+  }
+
+  try {
+    // Server par admitcards folder ka index check karein
+    const response = await fetch("admitcards/");
+    const text = await response.text();
+
+    // Regex se file name find karein jo rollNo se start hota ho
+    const regex = new RegExp(`${rollNo}-.*?\\.pdf`, "i");
+    const match = text.match(regex);
+
+    loadingSpinner.style.display = "none";
+
+    if (match) {
+      const fileUrl = "admitcards/" + match[0];
+      window.open(fileUrl, "_blank");
+    } else {
+      messageBox.textContent = `❌ Admit card not found for Buckle No: ${rollNo}`;
+    }
+  } catch (error) {
+    loadingSpinner.style.display = "none";
+    messageBox.textContent = "⚠ Error accessing admit cards folder.";
+  }
+}
+</script>
+
 </body>
 </html>
