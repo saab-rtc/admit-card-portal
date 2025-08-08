@@ -18,12 +18,7 @@
       --font: 'Poppins', sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: var(--font);
       background: var(--bg);
@@ -35,7 +30,6 @@
       align-items: flex-start;
       padding: 20px;
     }
-
     .container {
       max-width: 960px;
       width: 100%;
@@ -47,33 +41,15 @@
       backdrop-filter: blur(8px);
       padding-bottom: 20px;
     }
-
     .header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       padding: 30px;
       text-align: center;
       color: var(--white);
     }
-
-    .header img {
-      height: 90px;
-      margin-bottom: 12px;
-      object-fit: contain;
-    }
-
-    .header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-    }
-
-    .header h2 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      opacity: 0.9;
-    }
-
+    .header img { height: 90px; margin-bottom: 12px; object-fit: contain; }
+    .header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+    .header h2 { font-size: 1.1rem; font-weight: 500; opacity: 0.9; }
     .subtitle {
       background: var(--accent);
       color: var(--white);
@@ -84,12 +60,7 @@
       font-weight: 600;
       border-radius: 6px;
     }
-
-    .search-container {
-      padding: 20px;
-      text-align: center;
-    }
-
+    .search-container { padding: 20px; text-align: center; }
     .search-container input {
       width: 100%;
       max-width: 320px;
@@ -98,17 +69,13 @@
       border: 2px solid var(--primary);
       border-radius: 6px;
       background: var(--white);
-      transition: border-color 0.3s, box-shadow 0.3s;
       color: #000;
-      oninput: "this.value = this.value.replace(/[^0-9]/g, '')";
     }
-
     .search-container input:focus {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
     }
-
     .search-container button {
       margin: 10px 0;
       padding: 12px 24px;
@@ -121,13 +88,11 @@
       cursor: pointer;
       transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
     }
-
     .search-container button:hover {
       background: #1e3a8a;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-
     .loading-spinner {
       display: none;
       border: 4px solid #f3f3f3;
@@ -138,36 +103,8 @@
       animation: spin 1s linear infinite;
       margin: 10px auto;
     }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .message {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #ff6b6b;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--white);
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      padding: 8px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .theme-toggle:hover {
-      background: var(--primary);
-      color: var(--white);
-    }
-
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .message { margin-top: 15px; font-size: 14px; color: #ff6b6b; }
     .footer {
       background: var(--bg);
       padding: 15px;
@@ -175,57 +112,10 @@
       font-size: 0.9rem;
       color: #9ca3af;
     }
-
-    .footer .developer-credit {
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    /* Light Mode */
-    body.light-mode {
-      --bg: #f3f4f6;
-      --text: #1f2937;
-      --secondary: #ffffff;
-    }
-
-    body.light-mode .container {
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        margin: 10px;
-        padding-bottom: 10px;
-      }
-
-      .header img {
-        height: 70px;
-      }
-
-      .header h1 {
-        font-size: 1.5rem;
-      }
-
-      .header h2 {
-        font-size: 0.95rem;
-      }
-
-      .search-container input {
-        max-width: 100%;
-      }
-
-      .search-container button {
-        width: 100%;
-      }
-    }
+    .footer .developer-credit { color: var(--accent); font-weight: 600; }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
-    <i class="fas fa-moon"></i>
-  </button>
-
   <div class="container">
     <div class="header">
       <img src="file (1) (1).png" alt="SAAB RTC Logo" />
@@ -236,16 +126,8 @@
     <div class="subtitle">Admit Card for LSC Batch 02/2025</div>
 
     <div class="search-container">
-      <input
-        type="text"
-        id="rollNo"
-        placeholder="Enter Buckle Number (e.g., 1254)"
-        aria-label="Enter Roll Number"
-        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-      />
-      <button onclick="downloadAdmitCard()" aria-label="Download Admit Card">
-        <i class="fas fa-download"></i> Download Admit Card
-      </button>
+      <input type="text" id="rollNo" placeholder="Enter Buckle Number (e.g., 1254)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+      <button onclick="downloadAdmitCard()">Download Admit Card</button>
       <div class="loading-spinner" id="loadingSpinner"></div>
       <div class="message" id="message"></div>
     </div>
@@ -257,41 +139,39 @@
     </div>
   </div>
 
-async function downloadAdmitCard() {
-  const rollNo = document.getElementById('rollNo').value.trim();
-  const messageBox = document.getElementById('message');
-  const loadingSpinner = document.getElementById('loadingSpinner');
-  messageBox.textContent = "";
+  <script>
+    async function downloadAdmitCard() {
+      const rollNo = document.getElementById('rollNo').value.trim();
+      const messageBox = document.getElementById('message');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      messageBox.textContent = "";
 
-  if (!rollNo) {
-    messageBox.textContent = "⚠ Please enter your Buckle Number.";
-    return;
-  }
+      if (!rollNo) {
+        messageBox.textContent = "⚠ Please enter your Buckle Number.";
+        return;
+      }
 
-  loadingSpinner.style.display = "block";
+      loadingSpinner.style.display = "block";
 
-  try {
-    // Apna GitHub Pages base URL yahan lagao
-    const baseURL = "https://YOUR-USERNAME.github.io/YOUR-REPO";
-    const fileUrl = `${baseURL}/admitcards/${rollNo}.pdf`;
+      try {
+        // Apna GitHub Pages base URL yahan lagao
+        const baseURL = "https://YOUR-USERNAME.github.io/YOUR-REPO";
+        const fileUrl = `${baseURL}/admitcards/${rollNo}.pdf`;
 
-    // Check if file exists
-    const response = await fetch(fileUrl);
-    loadingSpinner.style.display = "none";
+        // File existence check (fast method)
+        const response = await fetch(fileUrl, { method: 'HEAD' });
+        loadingSpinner.style.display = "none";
 
-    if (response.ok) {
-      window.open(fileUrl, "_blank");
-    } else {
-      messageBox.textContent = `❌ Admit card not found for Buckle No: ${rollNo}`;
+        if (response.ok) {
+          window.open(fileUrl, "_blank");
+        } else {
+          messageBox.textContent = `❌ Admit card not found for Buckle No: ${rollNo}`;
+        }
+      } catch (error) {
+        loadingSpinner.style.display = "none";
+        messageBox.textContent = "⚠ Unable to load admit card.";
+      }
     }
-  } catch (error) {
-    loadingSpinner.style.display = "none";
-    messageBox.textContent = "⚠ Unable to load admit card.";
-  }
-}
-
-
-
-
+  </script>
 </body>
 </html>
