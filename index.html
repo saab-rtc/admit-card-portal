@@ -106,7 +106,6 @@
       border-radius: 6px;
       background: var(--white);
       transition: border-color 0.3s, box-shadow 0.3s;
-      color: #000;
     }
 
     .search-container input:focus {
@@ -245,9 +244,8 @@
       <input
         type="text"
         id="rollNo"
-        placeholder="Enter Roll Number (e.g., 1254)"
+        placeholder="Enter Roll Number"
         aria-label="Enter Roll Number"
-        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
       />
       <button onclick="downloadAdmitCard()" aria-label="Download Admit Card">
         <i class="fas fa-download"></i> Download Admit Card
@@ -278,58 +276,20 @@
         return;
       }
       
-      // First try exact roll number match
-      checkFileExists(`admitcards/${rollNo}.pdf`, rollNo)
-        .then(exists => {
-          if (exists) {
-            window.open(`admitcards/${rollNo}.pdf`, '_blank');
-          } else {
-            // If exact match not found, try pattern match (rollNo-*.pdf)
-            return checkPatternMatch(rollNo);
-          }
-        })
-        .catch(error => {
-          console.error("Error:", error);
-          messageBox.textContent = "⚠ Error checking admit card. Please try again.";
-        })
-        .finally(() => {
-          loadingSpinner.style.display = "none";
-        });
-    }
-
-    function checkFileExists(url, rollNo) {
-      return fetch(url, { method: 'HEAD' })
+      let fileUrl = "admitcards/" + rollNo + ".pdf";
+      fetch(fileUrl, { method: 'HEAD' })
         .then(res => {
-          if (res.ok) return true;
-          return false;
-        });
-    }
-
-    function checkPatternMatch(rollNo) {
-      // This is a simulation - in a real implementation, you would need server-side support
-      // to check for files matching the pattern "rollNo-*.pdf"
-      
-      // For demonstration, we'll assume the file exists with the pattern "rollNo-Name.pdf"
-      const simulatedFileName = `${rollNo}-*.pdf`;
-      
-      // In a real implementation, you would make an API call to your server
-      // to check if any files match this pattern
-      return new Promise((resolve) => {
-        // Simulate network delay
-        setTimeout(() => {
-          // For demo purposes, we'll assume the file exists
-          // In production, replace this with actual API call
-          const fileExists = true; // Change this based on actual check
-          
-          if (fileExists) {
-            window.open(`admitcards/${rollNo}-*.pdf`, '_blank');
+          loadingSpinner.style.display = "none";
+          if (res.ok) {
+            window.open(fileUrl, '_blank');
           } else {
-            document.getElementById('message').textContent = 
-              `❌ Admit card not found for Roll No: ${rollNo}`;
+            messageBox.textContent = "❌ Admit card not found for Roll No: " + rollNo;
           }
-          resolve();
-        }, 1000);
-      });
+        })
+        .catch(err => {
+          loadingSpinner.style.display = "none";
+          messageBox.textContent = "⚠ Error checking admit card.";
+        });
     }
 
     function toggleTheme() {
