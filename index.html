@@ -6,149 +6,102 @@
 <title>LSC Batch 02/2025 - Admit Card Portal</title>
 <style>
     body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: linear-gradient(135deg, #0d1b2a, #000000);
-        color: #ffffff;
         margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        min-height: 100vh;
-    }
-
-    header {
-        text-align: center;
-        padding: 30px 15px 10px;
-    }
-
-    header h1 {
-        font-size: 2rem;
-        color: gold;
-        margin-bottom: 5px;
-        text-shadow: 0px 0px 8px rgba(255, 215, 0, 0.7);
-    }
-
-    header p {
-        font-size: 1rem;
-        color: #cccccc;
-    }
-
-    .container {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 25px;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 400px;
-        text-align: center;
-        box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
-        margin-top: 20px;
-    }
-
-    input {
-        width: 100%;
-        padding: 12px;
-        font-size: 1rem;
-        border: none;
-        border-radius: 6px;
-        margin-bottom: 15px;
-        outline: none;
-        text-align: center;
-    }
-
-    button {
-        background-color: #1d3557;
+        font-family: Arial, sans-serif;
+        background-color: #0b0f19;
         color: white;
-        padding: 12px;
-        width: 100%;
-        font-size: 1rem;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: background 0.3s;
+        text-align: center;
     }
-
-    button:hover {
-        background-color: #457b9d;
-    }
-
-    .message {
-        margin-top: 15px;
-        font-size: 0.95rem;
-        display: none;
-        padding: 10px;
-        border-radius: 6px;
-    }
-
-    .success {
-        background-color: rgba(0, 255, 0, 0.1);
-        color: #00ff99;
-        border: 1px solid #00ff99;
-    }
-
-    .error {
-        background-color: rgba(255, 0, 0, 0.1);
-        color: #ff4d4d;
-        border: 1px solid #ff4d4d;
-    }
-
-    footer {
-        margin-top: auto;
+    header {
+        background-color: #11182b;
         padding: 15px;
-        font-size: 0.85rem;
-        color: #888;
+        border-bottom: 3px solid #b1975b;
+    }
+    header img {
+        height: 60px;
+        vertical-align: middle;
+    }
+    header h1 {
+        display: inline-block;
+        margin: 0;
+        font-size: 24px;
+        color: #b1975b;
+        vertical-align: middle;
+    }
+    .container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #1a2236;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    h2 {
+        color: #b1975b;
+    }
+    input {
+        width: 80%;
+        padding: 12px;
+        margin-top: 15px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        text-align: center;
+    }
+    button {
+        margin-top: 15px;
+        padding: 12px 25px;
+        background-color: #b1975b;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #a1844f;
+    }
+    .note {
+        margin-top: 15px;
+        font-size: 13px;
+        color: #ccc;
     }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>LSC Batch 02/2025</h1>
-    <p>Admit Card Download Portal</p>
+    <img src="logo.png" alt="Logo">
+    <h1>Examination Branch - LSC Batch 02/2025</h1>
 </header>
 
 <div class="container">
+    <h2>Admit Card Download Portal</h2>
+    <p>Enter your Roll Number to download your admit card</p>
     <input type="text" id="rollNo" placeholder="Enter Roll Number">
-    <button onclick="downloadAdmitCard()">Download Admit Card</button>
-    <div id="message" class="message"></div>
+    <br>
+    <button onclick="downloadAdmitCard()">Download</button>
+    <p class="note">Make sure to enter the correct Roll Number without spaces.</p>
 </div>
-
-<footer>
-    &copy; 2025 Examination Branch - All Rights Reserved
-</footer>
 
 <script>
 function downloadAdmitCard() {
     let rollNo = document.getElementById('rollNo').value.trim();
-    let msg = document.getElementById('message');
-    
     if (rollNo === "") {
-        msg.textContent = "⚠ Please enter your Roll Number.";
-        msg.className = "message error";
-        msg.style.display = "block";
+        alert("Please enter your Roll Number");
         return;
     }
-    
     let fileUrl = "admitcards/" + rollNo + ".pdf";
-    
     fetch(fileUrl, { method: 'HEAD' })
         .then(res => {
             if (res.ok) {
-                msg.textContent = "✅ Admit card found! Opening PDF...";
-                msg.className = "message success";
-                msg.style.display = "block";
-                setTimeout(() => { window.open(fileUrl, '_blank'); }, 1000);
+                window.open(fileUrl, '_blank');
             } else {
-                msg.textContent = "❌ Admit card not found for Roll Number: " + rollNo;
-                msg.className = "message error";
-                msg.style.display = "block";
+                alert("Admit card not found for Roll Number: " + rollNo);
             }
         })
         .catch(err => {
-            msg.textContent = "⚠ Error checking admit card: " + err;
-            msg.className = "message error";
-            msg.style.display = "block";
+            alert("Error checking admit card: " + err);
         });
 }
 </script>
