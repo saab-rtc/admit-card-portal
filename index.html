@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admit Card Download</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+    }
+    h1 {
+        color: #4CAF50;
+    }
+    input {
+        padding: 10px;
+        font-size: 16px;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    .note {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #ccc;
+    }
+</style>
+</head>
+<body>
+
+<h1>Admit Card Download Portal</h1>
+<p>Enter your Roll Number to download your admit card</p>
+
+<input type="text" id="rollNo" placeholder="Enter Roll Number">
+<button onclick="downloadAdmitCard()">Download</button>
+
+<p class="note">Make sure to enter the correct Roll Number without spaces.</p>
+
+<script>
+function downloadAdmitCard() {
+    let rollNo = document.getElementById('rollNo').value.trim();
+    if (rollNo === "") {
+        alert("Please enter your Roll Number");
+        return;
+    }
+    let fileUrl = "admitcards/" + rollNo + ".pdf";
+    fetch(fileUrl, { method: 'HEAD' })
+        .then(res => {
+            if (res.ok) {
+                window.open(fileUrl, '_blank');
+            } else {
+                alert("Admit card not found for Roll Number: " + rollNo);
+            }
+        })
+        .catch(err => {
+            alert("Error checking admit card: " + err);
+        });
+}
+</script>
+
+</body>
+</html>
