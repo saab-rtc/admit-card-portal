@@ -3,14 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Admit Card Portal for LSC Batch 01/2025, SAAB Recruit Training Center Hyderabad" />
-  <meta name="keywords" content="SAAB, RTC Hyderabad, LSC Batch, Admit Card" />
-  <title>LSC Batch 01/2025 – SAAB, RTC Hyderabad Admit Card Portal</title>
-
-  <!-- Fonts & Icons -->
+  <title>SAAB RTC Hyderabad - Admit Card Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-
   <style>
     :root {
       --primary: #1e40af;
@@ -65,7 +59,6 @@
       height: 90px;
       margin-bottom: 12px;
       object-fit: contain;
-      loading: lazy;
     }
 
     .header h1 {
@@ -106,6 +99,8 @@
       border-radius: 6px;
       background: var(--white);
       transition: border-color 0.3s, box-shadow 0.3s;
+      color: #000;
+      oninput: "this.value = this.value.replace(/[^0-9]/g, '')";
     }
 
     .search-container input:focus {
@@ -233,19 +228,20 @@
 
   <div class="container">
     <div class="header">
-      <img src="rtc-logo.jpeg" alt="SAAB RTC Logo" />
+      <img src="file (1) (1).png" alt="SAAB RTC Logo" />
       <h1>SHAHEED ABDUL AZIZ BULLO</h1>
       <h2>RECRUIT TRAINING CENTER HYDERABAD</h2>
     </div>
 
-    <div class="subtitle">Admit Card for LSC Batch 01/2025</div>
+    <div class="subtitle">Admit Card for LSC Batch 02/2025</div>
 
     <div class="search-container">
       <input
         type="text"
         id="rollNo"
-        placeholder="Enter Roll Number"
+        placeholder="Enter Buckle Number (e.g., 1254)"
         aria-label="Enter Roll Number"
+        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
       />
       <button onclick="downloadAdmitCard()" aria-label="Download Admit Card">
         <i class="fas fa-download"></i> Download Admit Card
@@ -262,34 +258,37 @@
   </div>
 
   <script>
-    function downloadAdmitCard() {
-      let rollNo = document.getElementById('rollNo').value.trim();
-      let messageBox = document.getElementById('message');
+    // List of all admit cards (would come from server in real implementation)
+    const admitCards = {
+      "1254": "1254-Farhan Ahmed.pdf",
+      "1255": "1255-Ali Raza.pdf",
+      "1256": "1256-Saima Khan.pdf"
+      // Add all other roll numbers and their corresponding filenames
+    };
+
+    async function downloadAdmitCard() {
+      const rollNo = document.getElementById('rollNo').value.trim();
+      const messageBox = document.getElementById('message');
       const loadingSpinner = document.getElementById('loadingSpinner');
       
       messageBox.textContent = "";
       loadingSpinner.style.display = "block";
       
       if (rollNo === "") {
-        messageBox.textContent = "⚠ Please enter your Roll Number.";
+        messageBox.textContent = "⚠ Please enter your Buckle Number.";
         loadingSpinner.style.display = "none";
         return;
       }
       
-      let fileUrl = "admitcards/" + rollNo + ".pdf";
-      fetch(fileUrl, { method: 'HEAD' })
-        .then(res => {
-          loadingSpinner.style.display = "none";
-          if (res.ok) {
-            window.open(fileUrl, '_blank');
-          } else {
-            messageBox.textContent = "❌ Admit card not found for Roll No: " + rollNo;
-          }
-        })
-        .catch(err => {
-          loadingSpinner.style.display = "none";
-          messageBox.textContent = "⚠ Error checking admit card.";
-        });
+      // Check if we have this roll number in our list
+      if (admitCards[rollNo]) {
+        const fileUrl = "admitcards/" + admitCards[rollNo];
+        loadingSpinner.style.display = "none";
+        window.open(fileUrl, '_blank');
+      } else {
+        loadingSpinner.style.display = "none";
+        messageBox.textContent = "❌ Admit card not found for Buckle No: " + rollNo;
+      }
     }
 
     function toggleTheme() {
