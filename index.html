@@ -257,39 +257,39 @@
     </div>
   </div>
 
-<script>
 async function downloadAdmitCard() {
   const rollNo = document.getElementById('rollNo').value.trim();
   const messageBox = document.getElementById('message');
   const loadingSpinner = document.getElementById('loadingSpinner');
-
   messageBox.textContent = "";
-  loadingSpinner.style.display = "block";
 
-  if (rollNo === "") {
+  if (!rollNo) {
     messageBox.textContent = "⚠ Please enter your Buckle Number.";
-    loadingSpinner.style.display = "none";
     return;
   }
 
-  try {
-    const response = await fetch("https://YOUR-USERNAME.github.io/YOUR-REPO/admitcards/list.json");
-    const admitCards = await response.json();
+  loadingSpinner.style.display = "block";
 
+  try {
+    // Apna GitHub Pages base URL yahan lagao
+    const baseURL = "https://YOUR-USERNAME.github.io/YOUR-REPO";
+    const fileUrl = `${baseURL}/admitcards/${rollNo}.pdf`;
+
+    // Check if file exists
+    const response = await fetch(fileUrl);
     loadingSpinner.style.display = "none";
 
-    if (admitCards[rollNo]) {
-      const fileUrl = `https://YOUR-USERNAME.github.io/YOUR-REPO/admitcards/${admitCards[rollNo]}`;
+    if (response.ok) {
       window.open(fileUrl, "_blank");
     } else {
       messageBox.textContent = `❌ Admit card not found for Buckle No: ${rollNo}`;
     }
   } catch (error) {
     loadingSpinner.style.display = "none";
-    messageBox.textContent = "⚠ Unable to load admit cards list.";
+    messageBox.textContent = "⚠ Unable to load admit card.";
   }
 }
-</script>
+
 
 
 
