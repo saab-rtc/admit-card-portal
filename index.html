@@ -139,7 +139,7 @@
     </div>
   </div>
 
-  <script>
+<script>
     async function downloadAdmitCard() {
       const rollNo = document.getElementById('rollNo').value.trim();
       const messageBox = document.getElementById('message');
@@ -154,11 +154,11 @@
       loadingSpinner.style.display = "block";
 
       try {
-        // Apna GitHub Pages base URL yahan lagao
-        const baseURL = "https://YOUR-USERNAME.github.io/YOUR-REPO";
+        // Yahan apka actual GitHub Pages URL
+        const baseURL = "https://saab-rtc.github.io/admit-card-portal";
         const fileUrl = `${baseURL}/admitcards/${rollNo}.pdf`;
 
-        // File existence check (fast method)
+        // File existence check
         const response = await fetch(fileUrl, { method: 'HEAD' });
         loadingSpinner.style.display = "none";
 
@@ -172,7 +172,8 @@
         messageBox.textContent = "⚠ Unable to load admit card.";
       }
     }
-  </script>
+</script>
+
   
 </body>
 </html>
