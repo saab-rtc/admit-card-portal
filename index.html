@@ -257,15 +257,6 @@
     </div>
   </div>
 
-  <script>
-    // List of all admit cards (would come from server in real implementation)
-    const admitCards = {
-      "1254": "1254-Farhan Ahmed.pdf",
-      "1255": "1255-Ali Raza.pdf",
-      "1256": "1256-Saima Khan.pdf"
-      // Add all other roll numbers and their corresponding filenames
-    };
-
 <script>
 async function downloadAdmitCard() {
   const rollNo = document.getElementById('rollNo').value.trim();
@@ -282,14 +273,13 @@ async function downloadAdmitCard() {
   }
 
   try {
-    // GitHub Pages par JSON ka full path
-    const response = await fetch("https://username.github.io/admitcards/admitcards.json");
+    const response = await fetch("https://YOUR-USERNAME.github.io/YOUR-REPO/admitcards/list.json");
     const admitCards = await response.json();
 
     loadingSpinner.style.display = "none";
 
     if (admitCards[rollNo]) {
-      const fileUrl = "https://username.github.io/admitcards/" + admitCards[rollNo];
+      const fileUrl = `https://YOUR-USERNAME.github.io/YOUR-REPO/admitcards/${admitCards[rollNo]}`;
       window.open(fileUrl, "_blank");
     } else {
       messageBox.textContent = `❌ Admit card not found for Buckle No: ${rollNo}`;
@@ -300,6 +290,7 @@ async function downloadAdmitCard() {
   }
 }
 </script>
+
 
 
 </body>
