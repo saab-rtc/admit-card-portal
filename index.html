@@ -6,123 +6,149 @@
 <title>LSC Batch 02/2025 - Admit Card Portal</title>
 <style>
     body {
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #0a0f1c, #001f3f, #0a0f1c);
-        color: #fff;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: linear-gradient(135deg, #0d1b2a, #000000);
+        color: #ffffff;
         margin: 0;
         padding: 0;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
+        justify-content: flex-start;
         min-height: 100vh;
     }
-    .container {
-        background: rgba(0, 0, 0, 0.6);
-        padding: 30px;
-        border-radius: 15px;
+
+    header {
         text-align: center;
-        width: 90%;
-        max-width: 400px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.8);
-        border: 1px solid rgba(255, 215, 0, 0.4);
+        padding: 30px 15px 10px;
     }
-    h1 {
+
+    header h1 {
+        font-size: 2rem;
         color: gold;
         margin-bottom: 5px;
+        text-shadow: 0px 0px 8px rgba(255, 215, 0, 0.7);
     }
-    h2 {
-        font-size: 14px;
-        color: #ccc;
-        margin-bottom: 20px;
+
+    header p {
+        font-size: 1rem;
+        color: #cccccc;
     }
-    input {
-        padding: 12px;
-        font-size: 16px;
-        width: 100%;
-        border: none;
-        border-radius: 8px;
-        margin-bottom: 15px;
+
+    .container {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 25px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 400px;
         text-align: center;
-        background: #111;
-        color: #fff;
-        border: 1px solid #4CAF50;
+        box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+        margin-top: 20px;
     }
-    input:focus {
-        outline: none;
-        box-shadow: 0 0 8px #4CAF50;
-    }
-    button {
-        padding: 12px;
-        font-size: 16px;
-        background: #4CAF50;
-        border: none;
-        border-radius: 8px;
-        color: white;
-        cursor: pointer;
+
+    input {
         width: 100%;
-        transition: 0.3s;
+        padding: 12px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        outline: none;
+        text-align: center;
     }
+
+    button {
+        background-color: #1d3557;
+        color: white;
+        padding: 12px;
+        width: 100%;
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
     button:hover {
-        background: #45a049;
+        background-color: #457b9d;
     }
+
     .message {
         margin-top: 15px;
-        font-size: 14px;
-        padding: 8px;
-        border-radius: 5px;
+        font-size: 0.95rem;
+        display: none;
+        padding: 10px;
+        border-radius: 6px;
     }
-    .error {
-        background: rgba(255, 0, 0, 0.2);
-        border: 1px solid red;
-        color: #ff6b6b;
-    }
+
     .success {
-        background: rgba(0, 255, 0, 0.2);
-        border: 1px solid #4CAF50;
-        color: #4CAF50;
+        background-color: rgba(0, 255, 0, 0.1);
+        color: #00ff99;
+        border: 1px solid #00ff99;
+    }
+
+    .error {
+        background-color: rgba(255, 0, 0, 0.1);
+        color: #ff4d4d;
+        border: 1px solid #ff4d4d;
+    }
+
+    footer {
+        margin-top: auto;
+        padding: 15px;
+        font-size: 0.85rem;
+        color: #888;
     }
 </style>
 </head>
 <body>
 
+<header>
+    <h1>LSC Batch 02/2025</h1>
+    <p>Admit Card Download Portal</p>
+</header>
+
 <div class="container">
-    <h1>Admit Card Portal</h1>
-    <h2>LSC Batch 02/2025</h2>
     <input type="text" id="rollNo" placeholder="Enter Roll Number">
     <button onclick="downloadAdmitCard()">Download Admit Card</button>
-    <div class="message" id="message"></div>
+    <div id="message" class="message"></div>
 </div>
+
+<footer>
+    &copy; 2025 Examination Branch - All Rights Reserved
+</footer>
 
 <script>
 function downloadAdmitCard() {
     let rollNo = document.getElementById('rollNo').value.trim();
-    let messageBox = document.getElementById('message');
-    messageBox.textContent = "";
-    messageBox.className = "message";
+    let msg = document.getElementById('message');
     
     if (rollNo === "") {
-        messageBox.textContent = "⚠ Please enter your Roll Number.";
-        messageBox.classList.add("error");
+        msg.textContent = "⚠ Please enter your Roll Number.";
+        msg.className = "message error";
+        msg.style.display = "block";
         return;
     }
     
     let fileUrl = "admitcards/" + rollNo + ".pdf";
+    
     fetch(fileUrl, { method: 'HEAD' })
         .then(res => {
             if (res.ok) {
-                messageBox.textContent = "✅ Admit card found. Downloading...";
-                messageBox.classList.add("success");
-                setTimeout(() => {
-                    window.open(fileUrl, '_blank');
-                }, 800);
+                msg.textContent = "✅ Admit card found! Opening PDF...";
+                msg.className = "message success";
+                msg.style.display = "block";
+                setTimeout(() => { window.open(fileUrl, '_blank'); }, 1000);
             } else {
-                messageBox.textContent = "❌ Admit card not found for Roll No: " + rollNo;
-                messageBox.classList.add("error");
+                msg.textContent = "❌ Admit card not found for Roll Number: " + rollNo;
+                msg.className = "message error";
+                msg.style.display = "block";
             }
         })
         .catch(err => {
-            messageBox.textContent = "⚠ Error checking admit card.";
-            messageBox.classList.add("error");
+            msg.textContent = "⚠ Error checking admit card: " + err;
+            msg.className = "message error";
+            msg.style.display = "block";
         });
 }
 </script>
