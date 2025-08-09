@@ -126,7 +126,7 @@
     <div class="subtitle">Admit Card for LSC Batch 02/2025</div>
 
     <div class="search-container">
-      <input type="text" id="rollNo" placeholder="Enter Buckle Number (e.g., 1254)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+      <input type="text" id="rollNo" placeholder="Enter CNIC Number (e.g., 12345-6789102-3)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
       <button onclick="downloadAdmitCard()">Download Admit Card</button>
       <div class="loading-spinner" id="loadingSpinner"></div>
       <div class="message" id="message"></div>
@@ -147,7 +147,7 @@
       messageBox.textContent = "";
 
       if (!rollNo) {
-        messageBox.textContent = "⚠ Please enter your Buckle Number.";
+        messageBox.textContent = "⚠ Please enter your CNIC Number.";
         return;
       }
 
@@ -165,7 +165,7 @@
         if (response.ok) {
           window.open(fileUrl, "_blank");
         } else {
-          messageBox.textContent = `❌ Admit card not found for Buckle No: ${rollNo}`;
+          messageBox.textContent = `❌ Admit card not found for CNIC No: ${rollNo}`;
         }
       } catch (error) {
         loadingSpinner.style.display = "none";
