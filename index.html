@@ -139,23 +139,31 @@
   </div>
 
 <script>
-function isValidCNIC(cnic) {
-  return /^\d{5}-\d{7}-\d{1}$/.test(cnic);
+function formatCNIC(cnic) {
+  // Agar already dash format me hai to waise hi return karo
+  if (/^\d{5}-\d{7}-\d{1}$/.test(cnic)) return cnic;
+  // Agar sirf numbers diye gaye hain to dash insert karo
+  if (/^\d{13}$/.test(cnic)) {
+    return cnic.slice(0,5) + "-" + cnic.slice(5,12) + "-" + cnic.slice(12);
+  }
+  return null; // invalid format
 }
 
 async function downloadAdmitCard() {
-  const rollNoInput = document.getElementById('rollNo').value.trim();
+  const rollNoRaw = document.getElementById('rollNo').value.trim();
   const messageBox = document.getElementById('message');
   const loadingSpinner = document.getElementById('loadingSpinner');
   messageBox.textContent = "";
 
-  if (!rollNoInput) {
+  if (!rollNoRaw) {
     messageBox.textContent = "⚠ Please enter your CNIC Number.";
     return;
   }
 
-  if (!isValidCNIC(rollNoInput)) {
-    messageBox.textContent = "⚠ Please enter CNIC in correct format: 12345-1234567-1";
+  const rollNoInput = formatCNIC(rollNoRaw);
+
+  if (!rollNoInput) {
+    messageBox.textContent = "⚠ Please enter CNIC in correct format: 12345-1234567-1 or 13 digits without dash.";
     return;
   }
 
@@ -179,5 +187,6 @@ async function downloadAdmitCard() {
   }
 }
 </script>
+
 </body>
 </html>
