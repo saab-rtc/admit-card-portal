@@ -141,17 +141,24 @@
 
 <script>
 function formatCNIC(cnic) {
-  // Agar already dash format me hai to return as-is
+  // Remove spaces
+  cnic = cnic.replace(/\s+/g, "").trim();
+
+  // Agar already dash format me hai to as-is return
   if (/^\d{5}-\d{7}-\d{1}$/.test(cnic)) {
     return cnic;
   }
-  // Sirf numbers lein
+
+  // Sirf digits rakhein
   const digits = cnic.replace(/\D/g, "");
+
   // Agar 13 digits hain to dash format banayein
   if (digits.length === 13) {
     return `${digits.slice(0,5)}-${digits.slice(5,12)}-${digits.slice(12)}`;
   }
-  return cnic; // agar length match na kare
+
+  // Agar invalid length hai to same return
+  return cnic;
 }
 
 async function downloadAdmitCard() {
@@ -169,10 +176,10 @@ async function downloadAdmitCard() {
 
   try {
     const formattedRollNo = formatCNIC(rollNoInput);
-    const baseURL = "https://saab-rtc.github.io/admit-card-portal";
-    const fileUrl = `${baseURL}/admitcards/${formattedRollNo}.pdf`;
+    const baseURL = "https://saab-rtc.github.io/admit-card-portal/admitcards";
+    const fileUrl = `${baseURL}/${encodeURIComponent(formattedRollNo)}.pdf`;
 
-    // File existence check
+    // File check
     const response = await fetch(fileUrl, { method: 'HEAD' });
     loadingSpinner.style.display = "none";
 
@@ -187,6 +194,7 @@ async function downloadAdmitCard() {
   }
 }
 </script>
+
   
 </body>
 </html>
