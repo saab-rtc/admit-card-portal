@@ -1,163 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SAAB RTC Hyderabad - Admit Card Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>Admit Card Search</title>
   <style>
-    :root {
-      --primary: #1e40af;
-      --secondary: #1e293b;
-      --bg: #0f172a;
-      --text: #f3f4f6;
-      --accent: #f59e0b;
-      --white: #ffffff;
-      --error: #ef4444;
-      --success: #10b981;
-      --font: 'Poppins', sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      text-align: center;
       padding: 20px;
     }
     .container {
-      max-width: 960px;
+      max-width: 400px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    input {
       width: 100%;
-      margin: 20px auto;
-      background: rgba(30, 41, 59, 0.9);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
-      padding-bottom: 20px;
-    }
-    .header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      padding: 30px;
-      text-align: center;
-      color: var(--white);
-    }
-    .header img { height: 90px; margin-bottom: 12px; object-fit: contain; }
-    .header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
-    .header h2 { font-size: 1.1rem; font-weight: 500; opacity: 0.9; }
-    .subtitle {
-      background: var(--accent);
-      color: var(--white);
-      margin: 20px;
       padding: 10px;
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 6px;
-    }
-    .search-container { padding: 20px; text-align: center; }
-    .search-container input {
-      width: 100%;
-      max-width: 320px;
-      padding: 12px;
-      font-size: 1rem;
-      border: 2px solid var(--primary);
-      border-radius: 6px;
-      background: var(--white);
-      color: #000;
-    }
-    .search-container input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
-    }
-    .search-container button {
-      margin: 10px 0;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--white);
-      background: var(--primary);
+      margin-top: 10px;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
-      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
     }
-    .search-container button:hover {
-      background: #1e3a8a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    button:hover {
+      background: #0b5ed7;
     }
-    .loading-spinner {
+    #message {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ff4444;
+    }
+    #loadingSpinner {
       display: none;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--accent);
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      animation: spin 1s linear infinite;
-      margin: 10px auto;
+      margin-top: 15px;
     }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .message { margin-top: 15px; font-size: 14px; color: #ff6b6b; }
-    .footer {
-      background: var(--bg);
-      padding: 15px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #9ca3af;
-    }
-    .footer .developer-credit { color: var(--accent); font-weight: 600; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <img src="file (1) (1).png" alt="SAAB RTC Logo" />
-      <h1>SHAHEED ABDUL AZIZ BULLO</h1>
-      <h2>RECRUIT TRAINING CENTER HYDERABAD</h2>
-    </div>
 
-    <div class="subtitle">Admit Card for LSC Batch 02/2025</div>
-
-    <div class="search-container">
-      <input type="text" id="rollNo" placeholder="Enter CNIC Number (12345-6789102-3)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
-      <button onclick="downloadAdmitCard()">Download Admit Card</button>
-      <div class="loading-spinner" id="loadingSpinner"></div>
-      <div class="message" id="message"></div>
-    </div>
-
-    <div class="footer">
-      <div class="developer-credit">
-        System Developed by: Mohsin Ali Jamali (Exam Branch SAAB, RTC HYD)
-      </div>
-    </div>
-  </div>
+<div class="container">
+  <h2>Search Your Admit Card</h2>
+  <p>Enter your CNIC (with or without dashes)</p>
+  <input 
+    type="text" 
+    id="rollNo" 
+    placeholder="e.g. 41302-1369189-9" 
+    oninput="this.value = this.value.replace(/[^0-9-]/g, '')" 
+  />
+  <button onclick="downloadAdmitCard()">Search</button>
+  
+  <div id="loadingSpinner">⏳ Loading...</div>
+  <div id="message"></div>
+</div>
 
 <script>
 function formatCNIC(cnic) {
-  // Remove spaces
   cnic = cnic.replace(/\s+/g, "").trim();
-
-  // Agar already dash format me hai to as-is return
+  
+  // Already in correct format
   if (/^\d{5}-\d{7}-\d{1}$/.test(cnic)) {
     return cnic;
   }
-
-  // Sirf digits rakhein
+  
+  // Remove non-digits
   const digits = cnic.replace(/\D/g, "");
-
-  // Agar 13 digits hain to dash format banayein
+  
+  // Convert to CNIC format if 13 digits
   if (digits.length === 13) {
     return `${digits.slice(0,5)}-${digits.slice(5,12)}-${digits.slice(12)}`;
   }
-
-  // Agar invalid length hai to same return
+  
   return cnic;
 }
 
@@ -179,7 +105,6 @@ async function downloadAdmitCard() {
     const baseURL = "https://saab-rtc.github.io/admit-card-portal/admitcards";
     const fileUrl = `${baseURL}/${encodeURIComponent(formattedRollNo)}.pdf`;
 
-    // File check
     const response = await fetch(fileUrl, { method: 'HEAD' });
     loadingSpinner.style.display = "none";
 
@@ -195,6 +120,5 @@ async function downloadAdmitCard() {
 }
 </script>
 
-  
 </body>
 </html>
