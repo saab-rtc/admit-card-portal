@@ -76,19 +76,29 @@
       box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
     }
     .search-container button {
-      margin: 10px 0;
+      margin: 10px 5px;
       padding: 12px 24px;
       font-size: 1rem;
       font-weight: 600;
       color: var(--white);
-      background: var(--primary);
       border: none;
       border-radius: 6px;
       cursor: pointer;
       transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
     }
-    .search-container button:hover {
+    .search-container button.download-btn {
+      background: var(--primary);
+    }
+    .search-container button.download-btn:hover {
       background: #1e3a8a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .search-container button.print-btn {
+      background: var(--success);
+    }
+    .search-container button.print-btn:hover {
+      background: #059669;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
@@ -126,9 +136,11 @@
 
     <div class="search-container">
       <input type="text" id="rollNo" placeholder="Enter CNIC Number (12345-6789102-3)" />
-      <button onclick="downloadAdmitCard()">Download Admit Card</button>
+      <button class="download-btn" onclick="downloadAdmitCard()">Download Admit Card</button>
+      <button class="print-btn" onclick="printAdmitCard()">Print Admit Card</button>
       <div class="loading-spinner" id="loadingSpinner"></div>
       <div class="message" id="message"></div>
+      <iframe id="printFrame" style="display: none;"></iframe>
     </div>
 
     <div class="footer">
@@ -186,7 +198,53 @@ async function downloadAdmitCard() {
     messageBox.textContent = "⚠ Unable to load admit card.";
   }
 }
+
+async function printAdmitCard() {
+  const rollNoRaw = document.getElementById('rollNo').value.trim();
+  const messageBox = document.getElementById('message');
+  const loadingSpinner = document.getElementById('loadingSpinner');
+  messageBox.textContent = "";
+
+  if (!rollNoRaw) {
+    messageBox.textContent = "⚠ Please enter your CNIC Number.";
+    return;
+  }
+
+  const rollNoInput = formatCNIC(rollNoRaw);
+
+  if (!rollNoInput) {
+    messageBox.textContent = "⚠ Please enter CNIC in correct format: 12345-1234567-1 or 13 digits without dash.";
+    return;
+  }
+
+  loadingSpinner.style.display = "block";
+
+  try {
+    const baseURL = "https://saab-rtc.github.io/admit-card-portal/admitcards";
+    const fileUrl = `${baseURL}/${encodeURIComponent(rollNoInput)}.pdf`;
+
+    const response = await fetch(fileUrl, { method: 'HEAD' });
+    loadingSpinner.style.display = "none";
+
+    if (response.ok) {
+      const printFrame = document.getElementById('printFrame');
+      printFrame.src = fileUrl;
+      printFrame.onload = () => {
+        try {
+          printFrame.contentWindow.print();
+        } catch (e) {
+          messageBox.textContent = "⚠ Unable to trigger print. Please download and print manually.";
+        }
+      };
+    } else {
+      messageBox.textContent = `❌ Admit card not found for CNIC No: ${rollNoInput}`;
+    }
+  } catch (error) {
+    loadingSpinner.style.display = "none";
+    messageBox.textContent = "⚠ Unable to load admit card for printing.";
+  }
+}
 </script>
 
 </body>
-</html>
+        </html>
