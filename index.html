@@ -140,15 +140,18 @@
   </div>
 
 <script>
-function formatCNIC(cnicDigits) {
-  // Sirf numbers allow karo
-  cnicDigits = cnicDigits.replace(/\D/g, "");
-  
-  // Agar length 13 hai to dash format me convert karo
-  if (cnicDigits.length === 13) {
-    return `${cnicDigits.slice(0,5)}-${cnicDigits.slice(5,12)}-${cnicDigits.slice(12)}`;
+function formatCNIC(cnic) {
+  // Agar already dash format me hai to return as-is
+  if (/^\d{5}-\d{7}-\d{1}$/.test(cnic)) {
+    return cnic;
   }
-  return cnicDigits; // Agar format match na kare to as is
+  // Sirf numbers lein
+  const digits = cnic.replace(/\D/g, "");
+  // Agar 13 digits hain to dash format banayein
+  if (digits.length === 13) {
+    return `${digits.slice(0,5)}-${digits.slice(5,12)}-${digits.slice(12)}`;
+  }
+  return cnic; // agar length match na kare
 }
 
 async function downloadAdmitCard() {
@@ -184,8 +187,6 @@ async function downloadAdmitCard() {
   }
 }
 </script>
-
-
   
 </body>
 </html>
