@@ -140,39 +140,51 @@
   </div>
 
 <script>
-    async function downloadAdmitCard() {
-      const rollNo = document.getElementById('rollNo').value.trim();
-      const messageBox = document.getElementById('message');
-      const loadingSpinner = document.getElementById('loadingSpinner');
-      messageBox.textContent = "";
+function formatCNIC(cnicDigits) {
+  // Sirf numbers allow karo
+  cnicDigits = cnicDigits.replace(/\D/g, "");
+  
+  // Agar length 13 hai to dash format me convert karo
+  if (cnicDigits.length === 13) {
+    return `${cnicDigits.slice(0,5)}-${cnicDigits.slice(5,12)}-${cnicDigits.slice(12)}`;
+  }
+  return cnicDigits; // Agar format match na kare to as is
+}
 
-      if (!rollNo) {
-        messageBox.textContent = "⚠ Please enter your CNIC Number.";
-        return;
-      }
+async function downloadAdmitCard() {
+  const rollNoInput = document.getElementById('rollNo').value.trim();
+  const messageBox = document.getElementById('message');
+  const loadingSpinner = document.getElementById('loadingSpinner');
+  messageBox.textContent = "";
 
-      loadingSpinner.style.display = "block";
+  if (!rollNoInput) {
+    messageBox.textContent = "⚠ Please enter your CNIC Number.";
+    return;
+  }
 
-      try {
-        // Yahan apka actual GitHub Pages URL
-        const baseURL = "https://saab-rtc.github.io/admit-card-portal";
-        const fileUrl = `${baseURL}/admitcards/${rollNo}.pdf`;
+  loadingSpinner.style.display = "block";
 
-        // File existence check
-        const response = await fetch(fileUrl, { method: 'HEAD' });
-        loadingSpinner.style.display = "none";
+  try {
+    const formattedRollNo = formatCNIC(rollNoInput);
+    const baseURL = "https://saab-rtc.github.io/admit-card-portal";
+    const fileUrl = `${baseURL}/admitcards/${formattedRollNo}.pdf`;
 
-        if (response.ok) {
-          window.open(fileUrl, "_blank");
-        } else {
-          messageBox.textContent = `❌ Admit card not found for CNIC No: ${rollNo}`;
-        }
-      } catch (error) {
-        loadingSpinner.style.display = "none";
-        messageBox.textContent = "⚠ Unable to load admit card.";
-      }
+    // File existence check
+    const response = await fetch(fileUrl, { method: 'HEAD' });
+    loadingSpinner.style.display = "none";
+
+    if (response.ok) {
+      window.open(fileUrl, "_blank");
+    } else {
+      messageBox.textContent = `❌ Admit card not found for CNIC No: ${formattedRollNo}`;
     }
+  } catch (error) {
+    loadingSpinner.style.display = "none";
+    messageBox.textContent = "⚠ Unable to load admit card.";
+  }
+}
 </script>
+
 
   
 </body>
