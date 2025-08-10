@@ -193,17 +193,38 @@
 
     <div class="subtitle">Admit Card for LSC Batch 02/2025</div>
 
-    <div class="search-container">
-      <div class="input-wrapper">
-        <input type="text" id="rollNo" placeholder="Enter CNIC Number (e.g., 12345-6789102-3)" aria-label="Enter CNIC Number" />
-        <span class="help-icon" title="Enter CNIC in format 12345-6789102-3 or 13 digits without dashes">?</span>
-      </div>
-      <button class="download-btn" onclick="downloadAdmitCard()" aria-label="Download Admit Card">Download Admit Card</button>
-      <button class="print-btn" onclick="printAdmitCard()" aria-label="Print Admit Card">Print Admit Card</button>
-      <div class="loading-spinner" id="loadingSpinner"></div>
-      <div class="message" id="message"></div>
-      <iframe id="printFrame" style="display: none;"></iframe>
+   <div class="search-container">
+  <div class="input-wrapper">
+
+    <!-- Visitor Counter (Transparent) -->
+    <div style="background: rgba(255, 255, 255, 0.6); padding: 8px; border-radius: 8px; width: 220px; font-family: Arial, sans-serif; font-size: 14px; color: black; text-align: left; margin-bottom: 10px;">
+      <strong>Visitor Details</strong><br>
+      Today Visitors: <span id="todayCount">0</span><br>
+      This Month's Visitors: <span id="monthCount">0</span><br>
+      Overall Visitors: <span id="totalCount">0</span>
     </div>
+
+    <!-- CNIC Input -->
+    <input type="text" id="rollNo" placeholder="Enter CNIC Number (e.g., 12345-6789102-3)" aria-label="Enter CNIC Number" />
+    <span class="help-icon" title="Enter CNIC in format 12345-6789102-3 or 13 digits without dashes">?</span>
+  </div>
+
+  <button class="download-btn" onclick="downloadAdmitCard()" aria-label="Download Admit Card">Download Admit Card</button>
+  <button class="print-btn" onclick="printAdmitCard()" aria-label="Print Admit Card">Print Admit Card</button>
+
+  <div class="loading-spinner" id="loadingSpinner"></div>
+  <div class="message" id="message"></div>
+  <iframe id="printFrame" style="display: none;"></iframe>
+</div>
+
+<!-- JS to Set Visitor Counts -->
+<script>
+  // Static example numbers (you can replace with real data)
+  document.getElementById("todayCount").textContent = 1090;
+  document.getElementById("monthCount").textContent = 12471;
+  document.getElementById("totalCount").textContent = 148936;
+</script>
+
 
     <div class="footer">
       <div class="developer-credit">
