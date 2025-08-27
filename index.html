@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Download or print your admit card for SAAB RTC Hyderabad LSC Batch 02/2025." />
-  <meta name="keywords" content="SAAB RTC, admit card, Hyderabad, LSC Batch 02/2025" />
+  <meta name="description" content="Download or print your admit card / marks certificate for SAAB RTC Hyderabad." />
   <meta name="author" content="Mohsin Ali Jamali" />
-  <title>SAAB RTC Hyderabad - Admit Card Portal</title>
+  <title>SAAB RTC Hyderabad - Result Portal</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -27,30 +26,22 @@
       font-family: var(--font);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       padding: 20px;
-      font-size: 16px;
     }
     .container {
       max-width: 960px;
       width: 100%;
-      margin: 20px auto;
-      background: rgba(30, 41, 59, 0.9);
+      background: rgba(30, 41, 59, 0.95);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
-      padding-bottom: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
       animation: fadeIn 1s ease-in;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeIn { from {opacity:0;transform:translateY(20px);} to {opacity:1;transform:translateY(0);} }
     .header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       padding: 30px;
@@ -58,20 +49,9 @@
       color: var(--white);
       position: relative;
     }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 0;
-    }
-    .header > * { position: relative; z-index: 1; }
-    .header img { height: 90px; margin-bottom: 12px; object-fit: contain; loading: lazy; }
-    .header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 8px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); }
-    .header h2 { font-size: 1.3rem; font-weight: 400; opacity: 0.9; }
+    .header img { height: 90px; margin-bottom: 12px; }
+    .header h1 { font-size: 2.3rem; font-weight: 700; margin-bottom: 5px; }
+    .header h2 { font-size: 1.2rem; font-weight: 400; opacity: 0.9; }
     .subtitle {
       background: var(--accent);
       color: var(--white);
@@ -81,43 +61,41 @@
       font-size: 1.2rem;
       font-weight: 600;
       border-radius: 6px;
-      letter-spacing: 0.5px;
     }
     .search-container { padding: 20px; text-align: center; }
-    .input-wrapper { position: relative; max-width: 320px; margin: 0 auto; }
-    .search-container input {
+    .form-group { margin-bottom: 15px; }
+    select, input {
       width: 100%;
       max-width: 320px;
       padding: 12px;
+      margin: 5px auto;
       font-size: 1rem;
       border: 2px solid var(--primary);
       border-radius: 6px;
-      background: var(--white);
-      color: #000;
+      display: block;
     }
-    .search-container input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+    input:focus, select:focus { outline: none; border-color: var(--accent); }
+    .doc-type {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
     }
-    .search-container input.valid { border-color: var(--success); }
-    .search-container input.invalid { border-color: var(--error); }
-    .help-icon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--accent);
+    .doc-type label {
+      background: #1f2937;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .doc-type input { display: none; }
+    .doc-type input:checked + span {
+      background: var(--accent-secondary);
       color: var(--white);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      text-align: center;
-      line-height: 20px;
-      cursor: help;
-      font-size: 14px;
+      padding: 10px 15px;
+      border-radius: 6px;
     }
-    .search-container button {
+    button {
       margin: 10px 5px;
       padding: 12px 24px;
       font-size: 1rem;
@@ -128,59 +106,31 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    .search-container button.download-btn {
-      background: linear-gradient(135deg, var(--primary), var(--accent-secondary));
-    }
-    .search-container button.download-btn:hover {
-      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-      transform: scale(1.05) translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-    }
-    .search-container button.print-btn {
-      background: linear-gradient(135deg, var(--success), #34d399);
-    }
-    .search-container button.print-btn:hover {
-      background: linear-gradient(135deg, #059669, #34d399);
-      transform: scale(1.05) translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-    }
-    .search-container button:disabled {
-      background: #6b7280;
-      cursor: not-allowed;
-      transform: none;
-    }
+    .download-btn { background: linear-gradient(135deg, var(--primary), var(--accent-secondary)); }
+    .print-btn { background: linear-gradient(135deg, var(--success), #34d399); }
     .loading-spinner {
       display: none;
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid var(--accent);
-      border-radius: 50%;
+      margin: 15px auto;
       width: 30px;
       height: 30px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--accent);
+      border-radius: 50%;
       animation: spin 0.8s linear infinite;
-      margin: 15px auto;
     }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .message { margin-top: 15px; font-size: 14px; color: var(--error); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .message { margin-top: 10px; font-size: 0.9rem; }
+    .message.error { color: var(--error); }
     .message.success { color: var(--success); }
     .footer {
       background: var(--bg);
       padding: 15px;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #9ca3af;
     }
     .footer .developer-credit { color: var(--accent); font-weight: 600; }
-    .contact-info { margin-top: 10px; font-size: 0.85rem; }
-    .contact-info a { color: var(--accent); text-decoration: none; }
-    .contact-info a:hover { text-decoration: underline; }
-    @media (max-width: 600px) {
-      .container { margin: 10px; padding: 10px; }
-      .header h1 { font-size: 1.8rem; }
-      .header h2 { font-size: 1rem; }
-      .search-container input { max-width: 100%; margin-bottom: 10px; }
-      .search-container button { width: 100%; margin: 5px 0; }
-    }
-    @font-face { font-family: 'Poppins'; font-display: swap; }
+    .footer a { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -191,147 +141,93 @@
       <h2>RECRUIT TRAINING CENTER HYDERABAD</h2>
     </div>
 
-    <div class="subtitle">Admit Card for LSC Batch 02/2025</div>
+    <div class="subtitle">Result & Admit Card Portal</div>
 
-   <div class="search-container">
-      <div class="input-wrapper">
-        <input type="text" id="rollNo" placeholder="Enter CNIC Number (e.g., 12345-6789102-3)" aria-label="Enter CNIC Number" />
-        <span class="help-icon" title="Enter CNIC in format 12345-6789102-3 or 13 digits without dashes">?</span>
+    <div class="search-container">
+      <!-- Batch Selection -->
+      <div class="form-group">
+        <select id="batch">
+          <option value="">-- Select Batch --</option>
+          <optgroup label="Lower School Course">
+            <option value="LSC-02">LSC Batch-02/2025</option>
+          </optgroup>
+          <optgroup label="Recruit Course">
+            <option value="RC-01">RC Batch-02/2025</option>
+          </optgroup>
+        </select>
       </div>
-      <button class="download-btn" onclick="downloadAdmitCard()" aria-label="Download Admit Card">Download Admit Card</button>
-      <button class="print-btn" onclick="printAdmitCard()" aria-label="Print Admit Card">Print Admit Card</button>
+
+      <!-- Document Type -->
+      <div class="doc-type">
+        <label><input type="radio" name="doctype" value="admitcards" checked /><span>Admit Card</span></label>
+        <label><input type="radio" name="doctype" value="certificates" /><span>Marks Certificate</span></label>
+      </div>
+
+      <!-- CNIC Input -->
+      <div class="form-group">
+        <input type="text" id="rollNo" placeholder="Enter CNIC (e.g., 12345-6789102-3)" maxlength="15" />
+      </div>
+
+      <button class="download-btn" onclick="handleDocument('download')">Download</button>
+      <button class="print-btn" onclick="handleDocument('print')">Print</button>
+
       <div class="loading-spinner" id="loadingSpinner"></div>
       <div class="message" id="message"></div>
-      <iframe id="printFrame" style="display: none;"></iframe>
     </div>
 
     <div class="footer">
-      <div class="developer-credit">
-        System Developed by: Mohsin Ali Jamali (SAAB, RTC HYD)
-      </div>
-      <div class="contact-info">
-        For support, contact: <a href="mailto:mohsinhyd16@gmail.com">mohsinhyd16@gmail.com</a> | Phone: +92-306-0384231
-      </div>
+      <div class="developer-credit">System Developed by: Mohsin Ali Jamali (SAAB, RTC HYD)</div>
+      <div>For support: <a href="mailto:mohsinhyd16@gmail.com">mohsinhyd16@gmail.com</a> | Phone: +92-306-0384231</div>
     </div>
   </div>
 
   <script>
-    function formatCNIC(cnic) {
-      if (/^\d{5}-\d{7}-\d{1}$/.test(cnic)) return cnic;
-      if (/^\d{13}$/.test(cnic)) {
-        return cnic.slice(0, 5) + "-" + cnic.slice(5, 12) + "-" + cnic.slice(12);
-      }
-      return null;
-    }
-
-    document.getElementById('rollNo').addEventListener('input', function () {
-      const input = this.value.trim();
-      const messageBox = document.getElementById('message');
-      if (input && !/^\d{5}-\d{7}-\d{1}$|^\d{13}$/.test(input)) {
-        this.classList.add('invalid');
-        this.classList.remove('valid');
-        messageBox.textContent = '⚠ Invalid CNIC format. Use 12345-1234567-1 or 13 digits.';
-      } else {
-        this.classList.remove('invalid');
-        this.classList.add('valid');
-        messageBox.textContent = '';
-      }
+    // Auto-format CNIC
+    document.getElementById("rollNo").addEventListener("input", function () {
+      let val = this.value.replace(/[^0-9]/g, "");
+      if (val.length <= 5) this.value = val;
+      else if (val.length <= 12) this.value = val.slice(0, 5) + "-" + val.slice(5);
+      else this.value = val.slice(0, 5) + "-" + val.slice(5, 12) + "-" + val.slice(12, 13);
     });
 
-    async function downloadAdmitCard() {
-      const rollNoRaw = document.getElementById('rollNo').value.trim();
-      const messageBox = document.getElementById('message');
-      const loadingSpinner = document.getElementById('loadingSpinner');
-      const buttons = document.querySelectorAll('.search-container button');
-      messageBox.textContent = "";
+    async function handleDocument(action) {
+      const batch = document.getElementById("batch").value;
+      const rollNo = document.getElementById("rollNo").value.trim();
+      const docType = document.querySelector("input[name='doctype']:checked").value;
+      const msg = document.getElementById("message");
+      const spinner = document.getElementById("loadingSpinner");
+      msg.textContent = "";
 
-      if (!rollNoRaw) {
-        messageBox.textContent = "⚠ Please enter your CNIC Number.";
-        return;
-      }
+      if (!batch) { msg.textContent = "⚠ Please select a batch."; msg.className="message error"; return; }
+      if (!rollNo) { msg.textContent = "⚠ Please enter CNIC number."; msg.className="message error"; return; }
 
-      const rollNoInput = formatCNIC(rollNoRaw);
-      if (!rollNoInput) {
-        messageBox.textContent = "⚠ Please enter CNIC in correct format: 12345-1234567-1 or 13 digits without dash.";
-        return;
-      }
+      const fileUrl = `https://saab-rtc.github.io/admit-card-portal/${docType}/${batch}/${encodeURIComponent(rollNo)}.pdf`;
 
-      buttons.forEach(btn => btn.disabled = true);
-      loadingSpinner.style.display = "block";
-      messageBox.textContent = "⬇ Downloading admit card...";
-
+      spinner.style.display = "block";
       try {
-        const baseURL = "https://saab-rtc.github.io/admit-card-portal/admitcards";
-        const fileUrl = `${baseURL}/${encodeURIComponent(rollNoInput)}.pdf`;
-        const response = await fetch(fileUrl, { method: 'HEAD' });
-        loadingSpinner.style.display = "none";
-        buttons.forEach(btn => btn.disabled = false);
-
+        const response = await fetch(fileUrl, { method: "HEAD" });
+        spinner.style.display = "none";
         if (response.ok) {
-          messageBox.textContent = "✅ Download started!";
-          window.open(fileUrl, "_blank");
-          setTimeout(() => messageBox.textContent = "", 3000);
-        } else {
-          messageBox.textContent = `❌ Admit card not found for CNIC No: ${rollNoInput}`;
-        }
-      } catch (error) {
-        console.error("Download error:", error);
-        loadingSpinner.style.display = "none";
-        buttons.forEach(btn => btn.disabled = false);
-        messageBox.textContent = "⚠ Unable to load admit card.";
-      }
-    }
-
-    async function printAdmitCard() {
-      const rollNoRaw = document.getElementById('rollNo').value.trim();
-      const messageBox = document.getElementById('message');
-      const loadingSpinner = document.getElementById('loadingSpinner');
-      const buttons = document.querySelectorAll('.search-container button');
-      messageBox.textContent = "";
-
-      if (!rollNoRaw) {
-        messageBox.textContent = "⚠ Please enter your CNIC Number.";
-        return;
-      }
-
-      const rollNoInput = formatCNIC(rollNoRaw);
-      if (!rollNoInput) {
-        messageBox.textContent = "⚠ Please enter CNIC in correct format: 12345-1234567-1 or 13 digits without dash.";
-        return;
-      }
-
-      buttons.forEach(btn => btn.disabled = true);
-      loadingSpinner.style.display = "block";
-      messageBox.textContent = "🖨 Preparing to print admit card...";
-
-      try {
-        const baseURL = "https://saab-rtc.github.io/admit-card-portal/admitcards";
-        const fileUrl = `${baseURL}/${encodeURIComponent(rollNoInput)}.pdf`;
-        const response = await fetch(fileUrl, { method: 'HEAD' });
-        loadingSpinner.style.display = "none";
-        buttons.forEach(btn => btn.disabled = false);
-
-        if (response.ok) {
-          messageBox.textContent = "✅ Opening PDF for printing...";
-          const pdfWindow = window.open(fileUrl, "_blank");
-          if (pdfWindow) {
-            pdfWindow.onload = () => {
-              pdfWindow.print();
-              setTimeout(() => messageBox.textContent = "", 3000);
-            };
+          if (action === "download") {
+            window.open(fileUrl, "_blank");
+            msg.textContent = "✅ Download started!";
+            msg.className="message success";
           } else {
-            messageBox.textContent = "⚠ Unable to open PDF. Please allow pop-ups and try again.";
+            const pdfWindow = window.open(fileUrl, "_blank");
+            if (pdfWindow) { pdfWindow.onload = () => pdfWindow.print(); }
+            msg.textContent = "✅ Opening for print...";
+            msg.className="message success";
           }
         } else {
-          messageBox.textContent = `❌ Admit card not found for CNIC No: ${rollNoInput}`;
+          msg.textContent = "❌ Document not found for entered CNIC.";
+          msg.className="message error";
         }
-      } catch (error) {
-        console.error("Print error:", error);
-        loadingSpinner.style.display = "none";
-        buttons.forEach(btn => btn.disabled = false);
-        messageBox.textContent = "⚠ Unable to load admit card for printing. Please download and print manually.";
+      } catch (e) {
+        spinner.style.display = "none";
+        msg.textContent = "⚠ Error loading document. Try again.";
+        msg.className="message error";
       }
     }
   </script>
 </body>
-  </html>
+</html>
